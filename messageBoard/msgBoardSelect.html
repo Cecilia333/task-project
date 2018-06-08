@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        ol,
+        ul,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        th,
+        td,
+        dl,
+        dd,
+        form,
+        fieldset,
+        legend,
+        input,
+        textarea,
+        select {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font: 12px"宋体", "Arial Narrow", HELVETICA;
+            background: #fff;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a {
+            color: #2d374b;
+            text-decoration: none
+        }
+
+        a:hover {
+            color: #cd0200;
+            text-decoration: underline
+        }
+
+        em {
+            font-style: normal
+        }
+
+        li {
+            list-style: none
+        }
+
+        img {
+            border: 0;
+            vertical-align: middle
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        p {
+            word-wrap: break-word
+        }
+
+        html body {
+            height: 100%;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title {
+            font: 18px bold arial, sans-serif;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #messageBoard {
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 20px 20px;
+            overflow: hidden;
+            padding-bottom: 20px;
+        }
+
+        #messageBoard #leaveMessage {
+            position: relative;
+        }
+
+        #messageBoard #leaveMessage .userpart {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font: 16px bold arial, sans-serif;
+        }
+
+        #messageBoard #leaveMessage #usermessage {
+            position: absolute;
+            top: 60px;
+            left: 30px;
+        }
+
+        #messageBoard .message {
+            display: block;
+            width: 300px;
+            height: 100px;
+            margin-bottom: 5px;
+        }
+
+        #messageBoard #historys {
+            position: relative;
+            top: 210px;
+        }
+        #messageBoard #historys .list {
+            margin-top: 10px;
+            position: absolute;
+            left: 30px;
+            font-size: 15px;
+        }
+
+        #messageBoard #historys .oldmessagecontainer {
+            text-indent: 2em;
+        }
+
+        #messageBoard #historys .history {
+            margin-bottom: 10px;
+        }
+
+        #messageBoard #historys .history .userpart {
+            margin-bottom: 7px;
+        }
+
+        #messageBoard #historys .history .reset {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" src="./jquery-1.7.2.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div id="messageBoard">
+            <div id="leaveMessage">
+                <span class="title">留言区</span>
+                <div class="userpart">
+                    <span class="user">留言者：</span>
+                    <span class="username">张三</span>
+                </div>
+                <div id="usermessage">
+                    <input type="text" name="" class="message" placeholder="请输入您的留言">
+                    <button id="btn">发表</button>
+                </div>
+            </div>
+
+            <div id="historys">
+                <span class="title">历史留言</span>
+                <div id="select">
+                    <button id="allselect">全选</button>
+                    <button id="cancle">取消</button>
+                    <!-- <button id="delete">删除</button> -->
+                </div>
+                <ul class="list">
+                    <li class="history">
+                        <div class="userpart">
+                            <input class="checkbox" type="checkbox">
+                            <span class="user">留言者：</span>
+                            <span class="username">张三</span>
+                            <button class="modify">修改</button>
+                            <button class="submit">提交</button>
+                        </div>
+                        <div class="oldmessagecontainer">
+                            <span class="oldmessage">这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言。</span>
+                        </div>
+                        <div class="reset">
+                            <input type="text" name="" class="message" placeholder="请输入您的留言">
+                        </div>
+                    </li>
+                    <li class="history">
+                        <div class="userpart">
+                            <input class="checkbox" type="checkbox">
+                            <span class="user">留言者：</span>
+                            <span class="username">张三</span>
+                            <button class="modify">修改</button>
+                            <button class="submit">提交</button>
+                        </div>
+                        <div class="oldmessagecontainer">
+                            <span class="oldmessage">这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言。</span>
+                        </div>
+                        <div class="reset">
+                            <input type="text" name="" class="message" placeholder="请输入您的留言">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            var flag1 = 0;
+            $('#historys .modify').click(function () {
+                if (flag1 == 0) {
+                    $(this).parent().parent().find('.oldmessagecontainer').css('display', 'none');
+                    $(this).parent().parent().find('.reset').css('display', 'block');
+                    flag = 1;
+                }
+            })
+            $('#historys .submit').click(function () {
+                if (flag == 1) {
+                    $(this).parent().parent().find('.reset').css('display', 'none');
+                    $(this).parent().parent().find('.oldmessagecontainer').css({
+                        'display': 'block'
+                    });
+                    $(this).parent().parent().find('.oldmessagecontainer .oldmessage').html($(this).parent()
+                        .parent().find('.reset .message').val());
+                    flag1 = 0;
+                }
+
+            })
+            $('#historys #allselect').click(function () {
+                    // $('#historys .list').children()
+                    $('#historys .list .checkbox').attr("checked","true");
+            })
+            $('#historys #cancle').click(function () {
+                    // $('#historys .list').children()
+                    $('#historys .list .checkbox').removeAttr("checked");
+            })
+            $('#messageBoard #leaveMessage #btn').click(function(){
+                
+            })
+        })
+    </script>
+</body>
+
+</html>
