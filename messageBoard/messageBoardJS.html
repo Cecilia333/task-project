@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        ol,
+        ul,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        th,
+        td,
+        dl,
+        dd,
+        form,
+        fieldset,
+        legend,
+        input,
+        textarea,
+        select {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font: 12px"宋体", "Arial Narrow", HELVETICA;
+            background: #fff;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a {
+            color: #2d374b;
+            text-decoration: none
+        }
+
+        a:hover {
+            color: #cd0200;
+            text-decoration: underline
+        }
+
+        em {
+            font-style: normal
+        }
+
+        li {
+            list-style: none
+        }
+
+        img {
+            border: 0;
+            vertical-align: middle
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        p {
+            word-wrap: break-word
+        }
+        html body{
+            height: 100%;
+        }
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .title {
+            font: 18px bold arial, sans-serif;
+        }
+
+        #messageboard {
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 20px 20px;
+            overflow: hidden;
+            padding-bottom: 20px;
+        }
+
+        #messageboard #leavemessage {
+            position: relative;
+        }
+
+        #messageboard #leavemessage .userpart {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font: 16px bold arial, sans-serif;
+        }
+
+        #messageboard #leavemessage #usermessage {
+            position: absolute;
+            top: 60px;
+            left: 30px;
+        }
+
+        #messageboard #leavemessage #usermessage #message {
+            display: block;
+            width: 300px;
+            height: 100px;
+            margin-bottom: 5px;
+        }
+
+        #messageboard #historys {
+            position: relative;
+            top: 210px;
+        }
+
+        #messageboard #historys .list {
+            margin-top: 10px;
+            position: absolute;
+            left: 30px;
+            font-size: 15px;
+        }
+
+        #messageboard #historys .oldmessagecontainer {
+            text-indent: 2em;
+        }
+
+        #messageboard #historys .history {
+            margin-bottom: 10px;
+        }
+
+        #messageboard #historys .history .userpart {
+            margin-bottom: 7px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="messageboard">
+            <div id="leavemessage">
+                <span class="title">留言区</span>
+                <div class="userpart">
+                    <span class="user">留言者：</span>
+                    <span class="username">张三</span>
+                </div>
+                <div id="usermessage">
+                    <input type="text" name="" id="message" placeholder="请输入您的留言">
+                    <button id="btn">发表</button>
+                </div>
+            </div>
+
+            <div id="historys">
+                <span class="title">历史留言</span>
+                <ul class="list">
+                    <li class="history">
+                        <div class="userpart">
+                            <span class="user">留言者：</span>
+                            <span class="username">张三</span>
+                            <button class="modify">修改</button>
+                            <button class="submit">提交</button>
+                        </div>
+                        <div class="oldmessagecontainer">
+                            <span class="oldmessage">这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言。</span>
+                        </div>
+                    </li>
+                    <li class="history">
+                        <div class="userpart">
+                            <span class="user">留言者：</span>
+                            <span class="username">张三</span>
+                            <button class="modify">修改</button>
+                            <button class="submit">提交</button>
+                        </div>
+                        <div class="oldmessagecontainer">
+                            <span class="oldmessage">这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言，这是我的留言。</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            var his = document.getElementById('historys');
+            var oUl = his.getElementsByClassName('list');
+            var oLi = oUl[0].getElementsByClassName('history')
+            var oMod = oLi[0].getElementsByClassName('modify');
+            var oSub = oLi[0].getElementsByClassName('submit');
+            var old = oLi[0].getElementsByClassName('oldmessage');
+            var par = old[0].parentElement;
+            var flag = 0;
+
+            oMod[0].onclick = function () {
+                if (flag == 0) {
+                    par.removeChild(old[0]);
+                    var newMsg = document.createElement('input');
+                    newMsg.style.display = 'block';
+                    newMsg.style.width = 300 + 'px';
+                    newMsg.style.height = 100 + 'px';
+                    newMsg.placeholder = '请输入您的留言';
+                    newMsg.className = 'insert'
+                    par.appendChild(newMsg);
+                    flag = 1;
+                }
+
+            }
+            oSub[0].onclick = function () {
+                if (flag == 1) {
+                    var newMsg = par.getElementsByClassName('insert')[0];
+                    var newM = document.createElement('span');
+                    newM.innerHTML = newMsg.value;
+                    newM.className = 'oldmessage';
+                    par.appendChild(newM);
+                    par.removeChild(newMsg);
+                    flag = 0;
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>
